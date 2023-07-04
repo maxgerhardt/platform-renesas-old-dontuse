@@ -10,7 +10,8 @@ The Renesas RA4M1 group of microcontrollers (MCUs) uses the high-performance Arm
 # Usage
 
 1. [Install PlatformIO](https://platformio.org)
-2. Create PlatformIO project and configure a platform option in [platformio.ini](https://docs.platformio.org/page/projectconf.html) file:
+2. Install this third-party platform by [opening a PlatformIO Core CLI](https://docs.platformio.org/en/latest/integration/ide/vscode.html#platformio-core-cli) and executing `pio pkg install -g -p "https://github.com/maxgerhardt/platform-renesas.git"
+3. Create PlatformIO project and configure a platform option in [platformio.ini](https://docs.platformio.org/page/projectconf.html) file:
 
 ## Stable version
 
