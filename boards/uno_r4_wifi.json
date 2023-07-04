@@ -1,6 +1,6 @@
 {
     "build": {
-      "extra_flags": "-DNO_USB -DBACKTRACE_SUPPORT -DARDUINO_UNOR4_WIFI -DARDUINO_FSP -DCFG_TUSB_MCU=OPT_MCU_RAXXX",
+      "extra_flags": "-DNO_USB -DBACKTRACE_SUPPORT -DARDUINO_UNOWIFIR4 -DARDUINO_UNOR4_WIFI -DARDUINO_FSP -DCFG_TUSB_MCU=OPT_MCU_RAXXX",
       "core": "arduino",
       "cpu": "cortex-m4",
       "f_cpu": "48000000L",
