@@ -58,7 +58,7 @@
       "type": "uploader",
       "optional": true,
       "owner": "platformio",
-      "version": "~1.10900.0"
+      "version": "https://github.com/maxgerhardt/tool-bossac-1.9.1.git"
     },
     "tool-jlink": {
       "type": "uploader",

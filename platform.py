@@ -20,6 +20,8 @@ from platformio.managers.platform import PlatformBase
 
 
 IS_WINDOWS = sys.platform.startswith("win")
+IS_LINUX = sys.platform.startswith("linux")
+IS_MAC = sys.platform.startswith("darwin")
 
 class RenesasPlatform(PlatformBase):
 
@@ -58,6 +60,14 @@ class RenesasPlatform(PlatformBase):
         default_protocol = board_config.get("upload.protocol") or ""
         if variables.get("upload_protocol", default_protocol) == "dfu":
             self.packages["tool-dfuutil"]["optional"] = False
+        elif variables.get("upload_protocol", default_protocol) == "sam-ba":
+            # ugly: we need tool-bossac 1.9.1, registry only has 1.9.0.
+            # source it from different branches of a repo
+            self.packages["tool-bossac"]["optional"] = False
+            if IS_LINUX:
+                self.packages["toolchain-riscv"]["version"] = "https://github.com/maxgerhardt/tool-bossac-1.9.1.git#linux-x64"
+            elif IS_MAC:
+                self.packages["toolchain-riscv"]["version"] = "https://github.com/maxgerhardt/tool-bossac-1.9.1.git#mac"
 
         # configure J-LINK tool
         jlink_conds = [
