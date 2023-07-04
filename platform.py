@@ -65,9 +65,9 @@ class RenesasPlatform(PlatformBase):
             # source it from different branches of a repo
             self.packages["tool-bossac"]["optional"] = False
             if IS_LINUX:
-                self.packages["toolchain-riscv"]["version"] = "https://github.com/maxgerhardt/tool-bossac-1.9.1.git#linux-x64"
+                self.packages["tool-bossac"]["version"] = "https://github.com/maxgerhardt/tool-bossac-1.9.1.git#linux-x64"
             elif IS_MAC:
-                self.packages["toolchain-riscv"]["version"] = "https://github.com/maxgerhardt/tool-bossac-1.9.1.git#mac"
+                self.packages["tool-bossac"]["version"] = "https://github.com/maxgerhardt/tool-bossac-1.9.1.git#mac"
 
         # configure J-LINK tool
         jlink_conds = [
