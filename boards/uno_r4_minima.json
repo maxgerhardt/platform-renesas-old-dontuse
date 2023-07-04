@@ -42,7 +42,7 @@
       "use_1200bps_touch": false,
       "wait_for_upload_port": false,
       "native_usb": false,
-      "offset_address": "0x08010000"
+      "offset_address": "0x4000"
     },
     "url": "https://docs.arduino.cc/hardware/uno-r4-minima",
     "vendor": "Arduino"

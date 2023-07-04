@@ -135,13 +135,7 @@ debug_tools = board.get("debug.tools", {})
 upload_source = target_firm
 upload_actions = []
 
-if upload_protocol == "mbed":
-    upload_actions = [
-        env.VerboseAction(env.AutodetectUploadPort, "Looking for upload disk..."),
-        env.VerboseAction(env.UploadToDisk, "Uploading $SOURCE")
-    ]
-
-elif upload_protocol.startswith("blackmagic"):
+if upload_protocol.startswith("blackmagic"):
     env.Replace(
         UPLOADER="$GDB",
         UPLOADERFLAGS=[
@@ -206,10 +200,12 @@ elif upload_protocol == "dfu":
         "tool-dfuutil") or "", "bin", "dfu-util")
     _upload_flags = [
         "-d", ",".join(["%s:%s" % (hwid[0], hwid[1]) for hwid in hwids]),
-        "-a", "0", 
-        #"-s",
-        #"%s:leave" % board.get("upload.offset_address", "0x08000000"), 
-        "-Q", # reset after download
+        "-a", "0",
+        # The Arduino IDE originally uses -Q to apparentely reset to run mode
+        # This is not available in our older run version, however,
+        # we can still issue a USB reset with the same effect.
+        #"-Q", # reset after download
+        "-R", 
         "-D"
     ]
 
@@ -269,6 +265,15 @@ elif upload_protocol == "custom":
 
 else:
     sys.stderr.write("Warning! Unknown upload protocol %s\n" % upload_protocol)
+
+# Convenience: After upload (position 1 indexed from 0), we want to delay a bit
+# to give the USB serial device time to enumerate itself
+import time
+# TODO: This is not working, even with "Upload and Monitor",
+# we only have "upload" in this set. Do it alwayds for now
+if "monitor" in COMMAND_LINE_TARGETS or True:
+    upload_actions.insert(1, env.VerboseAction(
+        lambda source, target, env: time.sleep(2), "Delaying 2s for USB serial enumeration..."))
 
 AlwaysBuild(env.Alias("upload", upload_source, upload_actions))
 
