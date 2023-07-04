@@ -51,7 +51,7 @@ class RenesasPlatform(PlatformBase):
 
         frameworks = variables.get("pioframework", [])
         if "arduino" in frameworks:
-            if board.startswith(("uno")):
+            if board.startswith(("uno", "portenta")):
                 self.frameworks["arduino"]["package"] = "framework-arduinorenesas"
                 self.frameworks["arduino"][
                     "script"

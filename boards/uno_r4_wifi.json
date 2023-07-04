@@ -18,6 +18,8 @@
       ]
     },
     "connectivity": [
+      "wifi",
+      "bluetooth"
     ],
     "debug": {
       "jlink_device": "R7FA4M1AB",

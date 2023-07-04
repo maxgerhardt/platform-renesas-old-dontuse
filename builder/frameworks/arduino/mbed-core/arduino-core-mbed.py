@@ -48,7 +48,7 @@ def load_flags(filename):
 
 def configure_fpu_flags(board_config):
     board_cpu = board_config.get("build.cpu", "")
-    if board_cpu not in ("cortex-m4", "cortex-m7"):
+    if board_cpu not in ("cortex-m4", "cortex-m33"):
         return
 
     fpv_version = "4-sp" if board_cpu == "cortex-m4" else "5"
