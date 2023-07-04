@@ -1,19 +1,19 @@
 {
     "build": {
-      "extra_flags": "-DARDUINO_UNOR4_MINIMA -DARDUINO_MINIMA -DARDUINO_FSP -DCFG_TUSB_MCU=OPT_MCU_RAXXX",
+      "extra_flags": "-DNO_USB -DBACKTRACE_SUPPORT -DARDUINO_UNOR4_WIFI -DARDUINO_FSP -DCFG_TUSB_MCU=OPT_MCU_RAXXX",
       "core": "arduino",
       "cpu": "cortex-m4",
       "f_cpu": "48000000L",
       "mcu": "r7fa4m1ab3cfm#aa0",
-      "variant": "MINIMA",
+      "variant": "UNOWIFIR4",
       "hwids": [
         [
           "0x2341",
-          "0x0069"
+          "0x1002"
         ],
         [
           "0x2341",
-          "0x0369"
+          "0x006D"
         ]
       ]
     },
@@ -26,24 +26,24 @@
     "frameworks": [
       "arduino"
     ],
-    "name": "Arduino Uno R4 Minima",
+    "name": "Arduino Uno R4 WiFi",
     "upload": {
       "maximum_ram_size": 32768,
       "maximum_size": 262144,
-      "protocol": "dfu",
+      "protocol": "sam-ba",
       "protocols": [
         "cmsis-dap",
-        "dfu",
+        "sam-ba",
         "jlink",
         "stlink"
       ],
-      "require_upload_port": false,
-      "use_1200bps_touch": false,
+      "require_upload_port": true,
+      "use_1200bps_touch": true,
       "wait_for_upload_port": false,
-      "native_usb": false,
+      "native_usb": true,
       "offset_address": "0x4000"
     },
-    "url": "https://docs.arduino.cc/hardware/uno-r4-minima",
+    "url": "https://docs.arduino.cc/hardware/uno-r4-wifi",
     "vendor": "Arduino"
   }
   

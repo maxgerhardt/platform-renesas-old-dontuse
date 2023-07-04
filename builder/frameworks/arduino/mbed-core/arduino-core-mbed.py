@@ -142,7 +142,9 @@ env.Append(
     LINKFLAGS=[
         "-Wl,--gc-sections",
         "--specs=nano.specs",
-        "--specs=nosys.specs"
+        "--specs=nosys.specs",
+        '-Wl,-Map="%s"' % os.path.join(
+            "$BUILD_DIR", os.path.basename(env.subst("${PROJECT_DIR}.map")))
     ]
 )
 

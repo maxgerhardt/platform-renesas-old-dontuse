@@ -8,7 +8,7 @@ How to build PlatformIO based project
 
 ```shell
 # Change directory to example
-$ cd platform-renesas/examples/arduino-blink
+$ cd platform-renesas/examples/arduino-wifi-led-animation
 
 # Build project
 $ pio run
@@ -17,10 +17,10 @@ $ pio run
 $ pio run --target upload
 
 # Build specific environment
-$ pio run -e uno_r4_minima
+$ pio run -e uno_r4_wifi
 
 # Upload firmware for the specific environment
-$ pio run -e uno_r4_minima --target upload
+$ pio run -e uno_r4_wifi --target upload
 
 # Clean build files
 $ pio run --target clean

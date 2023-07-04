@@ -156,7 +156,30 @@ if upload_protocol.startswith("blackmagic"):
         env.VerboseAction(env.AutodetectUploadPort, "Looking for BlackMagic port..."),
         env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")
     ]
+elif upload_protocol == "sam-ba":
+    env.Replace(
+        UPLOADER="bossac",
+        UPLOADERFLAGS=[
+            "--port", '"$UPLOAD_PORT"',
+            "--write",
+            # If we verify we get "SAM-BA operation failed" :(
+            # We have to do a blind flash write until this is fixed
+            #"--verify",
+            "--reset"
+        ],
+        UPLOADCMD="$UPLOADER $UPLOADERFLAGS $SOURCES"
+    )
+    env.Append(UPLOADERFLAGS=[
+        "--erase",
+        "-U"
+    ])
+    if int(ARGUMENTS.get("PIOVERBOSE", 0)):
+        env.Prepend(UPLOADERFLAGS=["--info", "--debug"])
 
+    upload_actions = [
+        env.VerboseAction(BeforeUpload, "Looking for upload port..."),
+        env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")
+    ]
 elif upload_protocol.startswith("jlink"):
 
     def _jlink_cmd_script(env, source):
@@ -271,8 +294,9 @@ else:
 import time
 # TODO: This is not working, even with "Upload and Monitor",
 # we only have "upload" in this set. Do it alwayds for now
-if "monitor" in COMMAND_LINE_TARGETS or True:
-    upload_actions.insert(1, env.VerboseAction(
+# but we don't have to do this for the WiFi version
+if "monitor" in COMMAND_LINE_TARGETS or env.subst("$BOARD").startswith(("uno_r4_minima")):
+    upload_actions.insert(len(upload_actions), env.VerboseAction(
         lambda source, target, env: time.sleep(2), "Delaying 2s for USB serial enumeration..."))
 
 AlwaysBuild(env.Alias("upload", upload_source, upload_actions))

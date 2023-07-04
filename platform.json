@@ -54,6 +54,12 @@
       "owner": "platformio",
       "version": "~3.1200.0"
     },
+    "tool-bossac": {
+      "type": "uploader",
+      "optional": true,
+      "owner": "platformio",
+      "version": "~1.10900.0"
+    },
     "tool-jlink": {
       "type": "uploader",
       "optional": true,

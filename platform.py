@@ -24,11 +24,28 @@ IS_WINDOWS = sys.platform.startswith("win")
 class RenesasPlatform(PlatformBase):
 
     def configure_default_packages(self, variables, targets):
+        if not variables.get("board"):
+            return super().configure_default_packages(variables, targets)        
         board = variables.get("board")
         board_config = self.board_config(board)
-        build_core = variables.get(
-            "board_build.core", board_config.get("build.core", "arduino"))
-        build_mcu = variables.get("board_build.mcu", board_config.get("build.mcu", ""))
+        upload_protocol = variables.get(
+            "upload_protocol", board_config.get("upload.protocol", "")
+        )
+        disabled_pkgs = []
+        upload_tool = "tool-openocd"
+        if upload_protocol == "sam-ba":
+            upload_tool = "tool-bossac"
+        elif upload_protocol == "jlink":
+            upload_tool = "tool-jlink"
+        elif upload_protocol == "dfu":
+            upload_tool = "tool-dfuutil"
+
+        if upload_tool:
+            for name, opts in self.packages.items():
+                if "type" not in opts or opts["type"] != "uploader":
+                    continue
+                if name != upload_tool:
+                    disabled_pkgs.append(name)
 
         frameworks = variables.get("pioframework", [])
         if "arduino" in frameworks:
@@ -56,6 +73,9 @@ class RenesasPlatform(PlatformBase):
         if not any(jlink_conds) and jlink_pkgname in self.packages:
             del self.packages[jlink_pkgname]
 
+        for name in disabled_pkgs:
+            if name in self.packages:
+                del self.packages[name]
         return PlatformBase.configure_default_packages(self, variables,
                                                        targets)
 
