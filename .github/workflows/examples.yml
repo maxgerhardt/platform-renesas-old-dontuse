@@ -10,7 +10,7 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
         example:
           - "examples/arduino-blink"
-          - "examples/arduino-wifi-led-animation"
+          - "examples/arduino-uno-r4-wifi-led-animation"
           - "examples/arduino-uno-r4-wifi-wifi-scan"
           - "examples/arduino-portenta_c33-wifi-scan"
     runs-on: ${{ matrix.os }}

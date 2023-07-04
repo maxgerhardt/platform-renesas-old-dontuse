@@ -8,7 +8,7 @@ How to build PlatformIO based project
 
 ```shell
 # Change directory to example
-$ cd platform-renesas/examples/arduino-wifi-led-animation
+$ cd platform-renesas/examples/arduino-uno-r4-wifi-led-animation
 
 # Build project
 $ pio run
