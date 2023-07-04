@@ -103,6 +103,7 @@ env.Append(
 env.Append(
     # Due to long path names "-iprefix" hook is required to avoid toolchain crashes
     CCFLAGS=[
+        "-Os",
         "-iprefix" + os.path.join(FRAMEWORK_DIR),
         "@%s" % os.path.join(FRAMEWORK_DIR, "variants", board.get(
             "build.variant"), "includes.txt"),
