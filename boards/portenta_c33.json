@@ -20,7 +20,7 @@
   "connectivity": [
   ],
   "debug": {
-    "jlink_device": "R7FA4M1AB",
+    "jlink_device": "R7FA6M5BH",
     "openocd_target": "TODO"
   },
   "frameworks": [
