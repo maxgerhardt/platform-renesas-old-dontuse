@@ -61,7 +61,7 @@ class RenesasPlatform(PlatformBase):
         if variables.get("upload_protocol", default_protocol) == "dfu":
             self.packages["tool-dfuutil"]["optional"] = False
             if IS_LINUX:
-                self.packages["tool-dfuutil"]["version"] = "https://github.com/maxgerhardt/tool-dfuutil-new.git#linux-x64"
+                self.packages["tool-dfuutil"]["version"] = "https://github.com/maxgerhardt/tool-dfuutil-new.git#linux_x64"
             elif IS_MAC:
                 self.packages["tool-dfuutil"]["version"] = "https://github.com/maxgerhardt/tool-dfuutil-new.git#mac"
         elif variables.get("upload_protocol", default_protocol) == "sam-ba":
