@@ -139,7 +139,11 @@ class RenesasPlatform(PlatformBase):
                     }
                 }
             else:
-                server_args = ["-s", "$PACKAGE_DIR/openocd/scripts"]
+                server_args = [
+                    "-s", "$PACKAGE_DIR/openocd/scripts",
+                    # add our custom OpenOCD configs too
+                    "-s", os.path.join(os.path.dirname(os.path.realpath(__file__)), "misc", "openocd")
+                ]
                 if debug.get("openocd_board"):
                     server_args.extend([
                         "-f", "board/%s.cfg" % debug.get("openocd_board")
@@ -148,7 +152,17 @@ class RenesasPlatform(PlatformBase):
                     assert debug.get("openocd_target"), (
                         "Missed target configuration for %s" % board.id)
                     server_args.extend([
-                        "-f", "interface/%s.cfg" % link,
+                        "-f", "interface/%s.cfg" % link
+                    ])
+                    # For Arduino Uno R4 WiFi: OpenOCD won't find the CMSIS-DAP
+                    # Unless we explicitly tell it the VID + PID
+                    # should be refactored later to only trigger this with onboard debug
+                    if link == "cmsis-dap":
+                        server_args.extend([
+                            "-c",
+                            "cmsis_dap_vid_pid 0x2341 0x1002"
+                        ])
+                    server_args.extend([
                         "-c", "transport select %s" % (
                             "hla_swd" if link == "stlink" else "swd"),
                         "-f", "target/%s.cfg" % debug.get("openocd_target")
@@ -160,7 +174,28 @@ class RenesasPlatform(PlatformBase):
                         "package": "tool-openocd",
                         "executable": "bin/openocd",
                         "arguments": server_args
-                    }
+                    },
+                    # OpenOCD has no native flashing capabilities
+                    # For the Renesas chips. We need to preload using the
+                    # regular upload commands.
+                    "load_cmds": "preload",
+                    "init_cmds": [
+                        "define pio_reset_halt_target",
+                        "   monitor reset halt",
+                        "end",
+                        "define pio_reset_run_target",
+                        "   monitor reset",
+                        "end",
+                        # make peripheral memory etc. readable
+                        # since OpenOCD doesn't provide us with any target information (no flash driver etc.)
+                        "set mem inaccessible-by-default off",
+                        # fix to use hardware breakpoints of ARM CPU, not flash breakpoints. Doesn't break otherwise.
+                        "mem 0 0x40000 ro",
+                        "target extended-remote $DEBUG_PORT",
+                        "$LOAD_CMDS",
+                        "pio_reset_halt_target",
+                        "$INIT_BREAK",
+                    ]
                 }
             debug["tools"][link]["onboard"] = link in debug.get("onboard_tools", [])
             debug["tools"][link]["default"] = link in debug.get("default_tools", [])

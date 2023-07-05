@@ -22,8 +22,15 @@
       "bluetooth"
     ],
     "debug": {
+      "default_tools": [
+        "cmsis-dap"
+      ],
       "jlink_device": "R7FA4M1AB",
-      "openocd_target": "TODO"
+      "onboard_tools": [
+        "cmsis-dap"
+      ],
+      "openocd_target": "renesas_ra4m1",
+      "svd_path": "R7FA4M1AB.svd"
     },
     "frameworks": [
       "arduino"
