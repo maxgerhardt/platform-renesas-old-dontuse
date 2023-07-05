@@ -32,6 +32,9 @@ board = env.BoardConfig()
 FRAMEWORK_DIR = platform.get_package_dir("framework-arduinorenesas")
 assert os.path.isdir(FRAMEWORK_DIR)
 
+def is_pio_build():
+	from SCons.Script import COMMAND_LINE_TARGETS
+	return "idedata" not in COMMAND_LINE_TARGETS and "_idedata" not in COMMAND_LINE_TARGETS and "__idedata" not in COMMAND_LINE_TARGETS
 
 def load_flags(filename):
     if not filename:
@@ -104,9 +107,6 @@ env.Append(
     # Due to long path names "-iprefix" hook is required to avoid toolchain crashes
     CCFLAGS=[
         "-Os",
-        "-iprefix" + os.path.join(FRAMEWORK_DIR),
-        "@%s" % os.path.join(FRAMEWORK_DIR, "variants", board.get(
-            "build.variant"), "includes.txt"),
         "-nostdlib",
         "-fno-builtin"
     ],
@@ -155,6 +155,30 @@ env.Replace(CXXFLAGS = list(filter(lambda x: not str(x).startswith("-W"), env["C
 # Additionally suprress warning in cm_backtrace.c
 env.Append(CFLAGS=["-Wno-discarded-qualifiers"])
 
+# read includes from this file to add them into CPPPATH later for good IDE intellisense
+# will use original -iprefix <prefix> @<file> for compilation though.
+includes_file = os.path.join(FRAMEWORK_DIR, "variants", board.get("build.variant"), "includes.txt")
+file_lines = []
+includes = []
+with open(includes_file, "r") as fp:
+    file_lines = fp.readlines()
+for l in file_lines:
+    path = l.strip().replace("-iwithprefixbefore/", "").replace("/", os.sep)
+    # emulate -iprefix <framework path>.
+    path = os.path.join(FRAMEWORK_DIR, path)
+    # prevent non-existent paths from being added
+    if os.path.isdir(path):
+        includes.append(path)
+
+if not is_pio_build():
+    env.Append(CPPPATH=includes)
+else:
+    env.Append(CCFLAGS= [
+            "-iprefix" + FRAMEWORK_DIR,
+            "@%s" % os.path.join(FRAMEWORK_DIR, "variants", board.get(
+                "build.variant"), "includes.txt"),
+        ])
+
 #
 # Configure FPU flags
 #
@@ -178,7 +202,7 @@ if not board.get("build.ldscript", ""):
 
 # Framework requires all symbols from mbed libraries
 #env.Prepend(_LIBFLAGS="-Wl,--whole-archive ")
-#  -Wl,--no-whole-archive 
+#  -Wl,--no-whole-archive
 env.Append(_LIBFLAGS=" -lstdc++ -lsupc++ -lm -lc -lgcc -lnosys")
 
 libs = []
