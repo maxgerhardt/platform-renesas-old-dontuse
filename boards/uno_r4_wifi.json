@@ -1,58 +1,59 @@
 {
-    "build": {
-      "extra_flags": "-DNO_USB -DBACKTRACE_SUPPORT -DARDUINO_UNOWIFIR4 -DARDUINO_UNOR4_WIFI -DARDUINO_FSP -DCFG_TUSB_MCU=OPT_MCU_RAXXX",
-      "core": "arduino",
-      "cpu": "cortex-m4",
-      "f_cpu": "48000000L",
-      "mcu": "r7fa4m1ab3cfm#aa0",
-      "variant": "UNOWIFIR4",
-      "hwids": [
-        [
-          "0x2341",
-          "0x1002"
-        ],
-        [
-          "0x2341",
-          "0x006D"
-        ]
+  "build": {
+    "extra_flags": "-DNO_USB -DBACKTRACE_SUPPORT -DARDUINO_UNOWIFIR4 -DARDUINO_UNOR4_WIFI -DARDUINO_FSP -DCFG_TUSB_MCU=OPT_MCU_RAXXX",
+    "core": "arduino",
+    "cpu": "cortex-m4",
+    "f_cpu": "48000000L",
+    "mcu": "r7fa4m1ab3cfm#aa0",
+    "variant": "UNOWIFIR4",
+    "hwids": [
+      [
+        "0x2341",
+        "0x1002"
+      ],
+      [
+        "0x2341",
+        "0x006D"
       ]
-    },
-    "connectivity": [
-      "wifi",
-      "bluetooth"
+    ]
+  },
+  "connectivity": [
+    "wifi",
+    "bluetooth",
+    "can"
+  ],
+  "debug": {
+    "default_tools": [
+      "cmsis-dap"
     ],
-    "debug": {
-      "default_tools": [
-        "cmsis-dap"
-      ],
-      "jlink_device": "R7FA4M1AB",
-      "onboard_tools": [
-        "cmsis-dap"
-      ],
-      "openocd_target": "renesas_ra4m1",
-      "svd_path": "R7FA4M1AB.svd"
-    },
-    "frameworks": [
-      "arduino"
+    "jlink_device": "R7FA4M1AB",
+    "onboard_tools": [
+      "cmsis-dap"
     ],
-    "name": "Arduino Uno R4 WiFi",
-    "upload": {
-      "maximum_ram_size": 32768,
-      "maximum_size": 262144,
-      "protocol": "sam-ba",
-      "protocols": [
-        "cmsis-dap",
-        "sam-ba",
-        "jlink",
-        "stlink"
-      ],
-      "require_upload_port": true,
-      "use_1200bps_touch": true,
-      "wait_for_upload_port": false,
-      "native_usb": true,
-      "offset_address": "0x4000"
-    },
-    "url": "https://docs.arduino.cc/hardware/uno-r4-wifi",
-    "vendor": "Arduino"
-  }
+    "openocd_target": "renesas_ra4m1",
+    "svd_path": "R7FA4M1AB.svd"
+  },
+  "frameworks": [
+    "arduino"
+  ],
+  "name": "Arduino Uno R4 WiFi",
+  "upload": {
+    "maximum_ram_size": 32768,
+    "maximum_size": 262144,
+    "protocol": "sam-ba",
+    "protocols": [
+      "cmsis-dap",
+      "sam-ba",
+      "jlink",
+      "stlink"
+    ],
+    "require_upload_port": true,
+    "use_1200bps_touch": true,
+    "wait_for_upload_port": false,
+    "native_usb": true,
+    "offset_address": "0x4000"
+  },
+  "url": "https://docs.arduino.cc/hardware/uno-r4-wifi",
+  "vendor": "Arduino"
+}
   

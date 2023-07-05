@@ -1,49 +1,50 @@
 {
-    "build": {
-      "extra_flags": "-DARDUINO_UNOR4_MINIMA -DARDUINO_MINIMA -DARDUINO_FSP -DCFG_TUSB_MCU=OPT_MCU_RAXXX",
-      "core": "arduino",
-      "cpu": "cortex-m4",
-      "f_cpu": "48000000L",
-      "mcu": "r7fa4m1ab3cfm#aa0",
-      "variant": "MINIMA",
-      "hwids": [
-        [
-          "0x2341",
-          "0x0069"
-        ],
-        [
-          "0x2341",
-          "0x0369"
-        ]
-      ]
-    },
-    "connectivity": [
-    ],
-    "debug": {
-      "jlink_device": "R7FA4M1AB",
-      "openocd_target": "TODO"
-    },
-    "frameworks": [
-      "arduino"
-    ],
-    "name": "Arduino Uno R4 Minima",
-    "upload": {
-      "maximum_ram_size": 32768,
-      "maximum_size": 262144,
-      "protocol": "dfu",
-      "protocols": [
-        "cmsis-dap",
-        "dfu",
-        "jlink",
-        "stlink"
+  "build": {
+    "extra_flags": "-DARDUINO_UNOR4_MINIMA -DARDUINO_MINIMA -DARDUINO_FSP -DCFG_TUSB_MCU=OPT_MCU_RAXXX",
+    "core": "arduino",
+    "cpu": "cortex-m4",
+    "f_cpu": "48000000L",
+    "mcu": "r7fa4m1ab3cfm#aa0",
+    "variant": "MINIMA",
+    "hwids": [
+      [
+        "0x2341",
+        "0x0069"
       ],
-      "require_upload_port": false,
-      "use_1200bps_touch": false,
-      "wait_for_upload_port": false,
-      "native_usb": false,
-      "offset_address": "0x4000"
-    },
-    "url": "https://docs.arduino.cc/hardware/uno-r4-minima",
-    "vendor": "Arduino"
-  }
+      [
+        "0x2341",
+        "0x0369"
+      ]
+    ]
+  },
+  "connectivity": [
+    "can"
+  ],
+  "debug": {
+    "jlink_device": "R7FA4M1AB",
+    "openocd_target": "TODO"
+  },
+  "frameworks": [
+    "arduino"
+  ],
+  "name": "Arduino Uno R4 Minima",
+  "upload": {
+    "maximum_ram_size": 32768,
+    "maximum_size": 262144,
+    "protocol": "dfu",
+    "protocols": [
+      "cmsis-dap",
+      "dfu",
+      "jlink",
+      "stlink"
+    ],
+    "require_upload_port": false,
+    "use_1200bps_touch": false,
+    "wait_for_upload_port": false,
+    "native_usb": false,
+    "offset_address": "0x4000"
+  },
+  "url": "https://docs.arduino.cc/hardware/uno-r4-minima",
+  "vendor": "Arduino"
+}
   
