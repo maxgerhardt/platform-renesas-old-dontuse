@@ -25,7 +25,8 @@
   ],
   "debug": {
     "jlink_device": "R7FA6M5BH",
-    "openocd_target": "TODO"
+    "openocd_target": "TODO",
+    "svd_path": "R7FA6M5BH.svd"
   },
   "frameworks": [
     "arduino"
