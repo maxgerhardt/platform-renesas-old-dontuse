@@ -70,7 +70,7 @@
       "type": "uploader",
       "optional": true,
       "owner": "platformio",
-      "version": "~1.11.0"
+      "version": "https://github.com/maxgerhardt/tool-dfuutil-new.git"
     }
   }
 }

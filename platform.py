@@ -60,6 +60,10 @@ class RenesasPlatform(PlatformBase):
         default_protocol = board_config.get("upload.protocol") or ""
         if variables.get("upload_protocol", default_protocol) == "dfu":
             self.packages["tool-dfuutil"]["optional"] = False
+            if IS_LINUX:
+                self.packages["tool-dfuutil"]["version"] = "https://github.com/maxgerhardt/tool-dfuutil-new.git#linux-x64"
+            elif IS_MAC:
+                self.packages["tool-dfuutil"]["version"] = "https://github.com/maxgerhardt/tool-dfuutil-new.git#mac"
         elif variables.get("upload_protocol", default_protocol) == "sam-ba":
             # ugly: we need tool-bossac 1.9.1, registry only has 1.9.0.
             # source it from different branches of a repo

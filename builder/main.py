@@ -220,38 +220,19 @@ elif upload_protocol == "dfu":
 
     # default tool for all boards with embedded DFU bootloader over USB
     _upload_tool = '"%s"' % join(platform.get_package_dir(
-        "tool-dfuutil") or "", "bin", "dfu-util")
+        "tool-dfuutil") or "", "dfu-util")
     _upload_flags = [
         "-d", ",".join(["%s:%s" % (hwid[0], hwid[1]) for hwid in hwids]),
         "-a", "0",
-        # The Arduino IDE originally uses -Q to apparentely reset to run mode
-        # This is not available in our older run version, however,
-        # we can still issue a USB reset with the same effect.
-        #"-Q", # reset after download
-        "-R", 
+        "-Q", # reset after download
         "-D"
     ]
 
     upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
-
-    if "dfu-util" in _upload_tool:
-        # Add special DFU header to the binary image
-        env.AddPostAction(
-            join("$BUILD_DIR", "${PROGNAME}.bin"),
-            env.VerboseAction(
-                " ".join([
-                    '"%s"' % join(platform.get_package_dir("tool-dfuutil") or "",
-                         "bin", "dfu-suffix"),
-                    "-v %s" % vid,
-                    "-p %s" % pid,
-                    "-d 0xffff", "-a", "$TARGET"
-                ]), "Adding dfu suffix to ${PROGNAME}.bin"))
-
     env.Replace(
         UPLOADER=_upload_tool,
         UPLOADERFLAGS=_upload_flags,
         UPLOADCMD='$UPLOADER $UPLOADERFLAGS "${SOURCE.get_abspath()}"')
-
     upload_source = target_firm
 
 elif upload_protocol in debug_tools:
@@ -289,7 +270,7 @@ elif upload_protocol == "custom":
 else:
     sys.stderr.write("Warning! Unknown upload protocol %s\n" % upload_protocol)
 
-# Convenience: After upload (position 1 indexed from 0), we want to delay a bit
+# Convenience: After upload, we want to delay a bit
 # to give the USB serial device time to enumerate itself
 import time
 # TODO: This is not working, even with "Upload and Monitor",
