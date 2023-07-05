@@ -1,7 +1,7 @@
 {
   "name": "renesas",
   "title": "Renesas",
-  "description": "The Renesas RA4M1 group of microcontrollers (MCUs) uses the high-performance Arm Cortex-M4 core and offers a segment LCD controller and a capacitive touch sensing unit input for intensive HMI designs.",
+  "description": "The flexible Renesas Advanced (RA) 32-bit microcontrollers (MCUs) are industry-leading 32-bit MCUs with the Arm Cortex-M33, -M23 and -M4 processor cores and PSA certification.",
   "homepage": "https://www.renesas.com/us/en/products/microcontrollers-microprocessors/ra-cortex-m-mcus/ra4m1-32-bit-microcontrollers-48mhz-arm-cortex-m4-and-lcd-controller-and-cap-touch-hmi",
   "license": "Apache-2.0",
   "keywords": [
@@ -10,7 +10,8 @@
     "Cortex-M",
     "Renesas",
     "RA4M1",
-    "R7FA4M"
+    "R7FA4M",
+    "RA6M5"
   ],
   "engines": {
     "platformio": "^5"
