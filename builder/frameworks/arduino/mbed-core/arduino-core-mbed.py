@@ -143,7 +143,7 @@ env.Append(
         "-Wl,--gc-sections",
         "--specs=nano.specs",
         "--specs=nosys.specs",
-        '-Wl,-Map="%s"' % join("${BUILD_DIR}", "${PROGNAME}.map")
+        '-Wl,-Map="%s"' % os.path.join("${BUILD_DIR}", "${PROGNAME}.map")
     ]
 )
 
