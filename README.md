@@ -1,3 +1,6 @@
+# OLD! DO NOT USE! 
+# USE OFFICIAL https://github.com/platformio/platform-renesas-ra INSTEAD!
+
 # Renesas: development platform for [PlatformIO](https://platformio.org)
 
 [![Build Status](https://github.com/maxgerhardt/platform-renesas/workflows/Examples/badge.svg)](https://github.com/maxgerhardt/platform-renesas/actions)
